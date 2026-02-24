@@ -1,4 +1,4 @@
-module github.com/selyukovn/go-domain-id
+module github.com/selyukovn/go-id
 
 go 1.17
 
