@@ -7,6 +7,8 @@ This was not mentioned as a `breaking change` and was incorrectly tagged as a bu
 
 *Note: v0.1.1 has been retracted.*
 
+---
+
 ## [0.1.1] - 2026-02-24
 
 Project renamed from `go-domain-id` to `go-id`.
