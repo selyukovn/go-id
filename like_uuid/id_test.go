@@ -10,12 +10,11 @@ func testDataProvider_Id_correctValues() []string {
 		"aa902246-1f28-44c7-8452-04805999ac32",
 		"592beeaa-e3d2-4768-bab3-7a5469d82bb3",
 		"1f688344-cce7-4a60-a96e-768291c6d3e0",
-		"00000000-0000-0000-0000-000000000000",
 
-		// TODO: define UUID case policy (case-sensitive or not?)
+		// Zero/nil value is also correct, but not for this data-provider.
+		// "00000000-0000-0000-0000-000000000000",
+
 		"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-		"aaaaaaaa-aaaa-aaaa-aaaa-AAAAAAAAAAAA",
-		"AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",
 	}
 }
 
@@ -33,6 +32,9 @@ func testDataProvider_Id_incorrectValues() []string {
 		" aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ",
 		"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa!!!",
 		"ёёёёёёёё-ёёёё-ёёёё-ёёёё-ёёёёёёёёёёёё",
+
+		"aaaaaaaa-aaaa-aaaa-aaaa-AAAAAAAAAAAA",
+		"AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",
 	}
 }
 
@@ -52,6 +54,12 @@ func Test_IdFromString(t *testing.T) {
 			assert.False(t, id.IsNil())
 			assert.Equal(t, tCase, id.String())
 		}
+
+		// zero/nil
+		nId, err := IdFromString("00000000-0000-0000-0000-000000000000")
+		assert.Equal(t, nId, IdNil)
+		assert.True(t, nId.IsNil())
+		assert.NoError(t, err)
 	})
 
 	t.Run("incorrect", func(t *testing.T) {
@@ -122,3 +130,5 @@ func Test_Id_String(t *testing.T) {
 		assert.Equal(t, tCase, id.String())
 	}
 }
+
+// ---------------------------------------------------------------------------------------------------------------------

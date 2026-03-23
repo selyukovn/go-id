@@ -11,5 +11,5 @@ func GenerateUniqueRandom() (Id, error) {
 		return IdNil, fmt.Errorf("uuid generation error : %w", err)
 	}
 
-	return Id{value: v.String()}, nil
+	return Id{value: v}, nil
 }

@@ -16,23 +16,40 @@ var IdNil = Id{}
 // ---------------------------------------------------------------------------------------------------------------------
 
 type Id struct {
-	value string
+	value uuid.UUID
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Create
 // ---------------------------------------------------------------------------------------------------------------------
 
+// IdFromString
+//
+// Accepts only lowercase 36 bytes length strings.
 func IdFromString(value string) (Id, error) {
-	err := uuid.Validate(value)
-
-	if err != nil {
-		return IdNil, fmt.Errorf("%q is not a valid UUID : %w", value, err)
+	_ = uuid.Parse // can parse more formats,
+	// but this package and method is only about 36 bytes length strings.
+	if len(value) != 36 {
+		return IdNil, fmt.Errorf("%q is not a valid UUID string", value)
 	}
 
-	return Id{value: value}, nil
+	v, err := uuid.Parse(value)
+
+	if err != nil {
+		return IdNil, fmt.Errorf("%q is not a valid UUID string: %w", value, err)
+	}
+
+	_ = uuid.Parse // -> .String() returns a string of lowercased 36 bytes.
+	// A difference between the original input and the String() method result in case of uppercased input may confuse,
+	// so a strict validation rule must be defined -- accept only lowercased strings.
+	if value != v.String() {
+		return IdNil, fmt.Errorf("%q is not a valid UUID string", value)
+	}
+
+	return Id{value: v}, nil
 }
 
+// IdFromStringMust -- see IdFromString().
 func IdFromStringMust(value string) Id {
 	id, err := IdFromString(value)
 	if err != nil {
@@ -50,5 +67,7 @@ func (id Id) IsNil() bool {
 }
 
 func (id Id) String() string {
-	return id.value
+	return id.value.String()
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
