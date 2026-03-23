@@ -5,15 +5,13 @@ import (
 	"testing"
 )
 
-func Test_IdGeneratorUniqueRandom_Generate(t *testing.T) {
-	g := NewIdGeneratorUniqueRandom()
-
+func Test_GenerateUniqueRandom(t *testing.T) {
 	t.Run("success unique", func(t *testing.T) {
 		n := 1_000_000
 		prevIds := make(map[Id]struct{}, n)
 
 		for i := 0; i < n; i++ {
-			id, err := g.Generate()
+			id, err := GenerateUniqueRandom()
 
 			assert.NotEqual(t, IdNil, id)
 			assert.NoError(t, err)

@@ -68,19 +68,17 @@ func (id Id) String() string {
 // Generator
 // ------------------------
 
-type IdGenerator interface {
+type IdGeneratorInterface interface {
     Generate() (Id, error)
 }
 
 // Generator implementation
 // ------------------------
 
-type IdGeneratorImplUniqueRandom struct {
-    internal like_uuid.IdGeneratorUniqueRandom
-}
+type IdGeneratorImplUniqueRandom struct {}
 
-func (g *IdGeneratorImplUniqueRandom) Generate() (Id, error) {
-    id, err := g.internal.Generate()
+func (g IdGeneratorImplUniqueRandom) Generate() (Id, error) {
+    id, err := like_uuid.GenerateUniqueRandom()
     return Id(id), err
 }
 ```
