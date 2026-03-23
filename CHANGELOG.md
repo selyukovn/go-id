@@ -1,3 +1,20 @@
+## [0.3.0] - 2026-03-24
+
+### BREAKING CHANGES
+
+- `like_uuid`: unnecessary `IdGeneratorUniqueRandom` structure is replaced with `GenerateUniqueRandom()` function.
+- `like_uuid`: functions `IdFromString()` and `IdFromStringMust()` accept only lowercased 36 bytes length string.
+
+### FEATURES
+- `like_uuid`: added `IdFromInt128()` function and `Id.Int128()` method.
+
+### IMPROVEMENTS
+
+- `like_uuid`: optimized memory usage by working with the `uuid.UUID` values (`128-bit integer`)
+  instead of the `36 bytes` length `string`.
+
+---
+
 ## [0.2.0] - 2026-02-25
 
 ### BREAKING CHANGES
