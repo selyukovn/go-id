@@ -23,6 +23,15 @@ type Id struct {
 // Create
 // ---------------------------------------------------------------------------------------------------------------------
 
+func IdFromInt128(value [16]byte) Id {
+	// `uuid.FromBytes()` returns error only if `len != 16`,
+	// but that is impossible in case of `[16]byte` input value,
+	// i.e. any value is already correct here.
+	return Id{value: uuid.Must(uuid.FromBytes(value[:]))}
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 // IdFromString
 //
 // Accepts only lowercase 36 bytes length strings.
@@ -68,6 +77,10 @@ func (id Id) IsNil() bool {
 
 func (id Id) String() string {
 	return id.value.String()
+}
+
+func (id Id) Int128() [16]byte {
+	return id.value
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

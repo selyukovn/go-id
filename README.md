@@ -3,7 +3,7 @@
 
 ### TL;DR
 
-This package contains basic code for artificial `Id`s based on `Uint` and `UUID`-strings.
+This package contains basic code for artificial `Id`s based on `Uint` and `UUID`.
 
 ### Here's the thing:
 
